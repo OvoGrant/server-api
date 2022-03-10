@@ -16,7 +16,7 @@ app.use('/stocks',stocksRouter);
 app.use('/watchlist',inventoryRouter);
 app.use('/nlp',nlpRouter);
 
-
+app.get('/',(req,res)=>{console.log("hello world")})
 app.listen(port, () => {
   // perform a database connection when server starts
   console.log(`Server is running on port: ${port}`);
