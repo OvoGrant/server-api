@@ -4,29 +4,18 @@ const router = express.Router()
 
 
 router.get('/', async (req,res)=>{
+    const date = req.body.date
     try{
-        const result = await pool.query(`SELECT * FROM nlp`);
+        const result = await pool.query(`SELECT * FROM nlp WHERE data = $1`,[date]);
         res.status(200).json(result.rows);
     }catch(err){
         res.status(400).send({message: err.message});
     }
 })
 
-router.post('/', async (req,res)=>{
-    const symbol = req.body.symbol
-    const compound = req.body.compound
-    const date = req.body.Date
-    const source = req.body.source
-    try{
-        await pool.query(`INSERT INTO nlp (symbol,compound, source, "Date") VALUES ('${symbol}','${compound}','${source}', '${date}');`);
-        res.status(201).send("Good Job little guy");
-    }catch(err){
-        res.status(404).send({message: err.message})
-    }
-})
 
-router.get('/:stock_id/:start/:end', async (req,res)=>{
-    const stock = req.stock_id;
+router.get('/stock/:id', async (req,res)=>{
+    const stock = req.params.id;
     const start = req.body.start;
     const end = req.body.end;
     try{
