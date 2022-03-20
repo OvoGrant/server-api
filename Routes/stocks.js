@@ -4,8 +4,12 @@ const router = express.Router()
 const db = require('../db')
 
 router.get('/', async (req,res)=>{
+   try{
     const results = await db.query('SELECT * FROM stocks ;')
-    res.status(200).json(results.rows)  
+    res.status(200).json(results.rows) 
+    }catch(err){
+     res.status(500).send("ERROR")
+    }
 })
      
 router.post('/', async (req,res)=>{
