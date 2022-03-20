@@ -10,7 +10,7 @@ router.post('/', async (req,res)=>{
     const symbol = req.body.symbol;
     console.log(user_id);
     console.log(symbol)
-    const queryString = `INSERT INTO watchlist (id,symbol) VALUES ('${user_id}','${symbol}');`;
+    const queryString = `INSERT INTO watchlist (user_id,symbol) VALUES ('${user_id}','${symbol}');`;
     try{
         await pool.query(queryString);
         res.status(201).send(`${symbol} was successfully added to your watchlist`);
